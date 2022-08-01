@@ -1,0 +1,13 @@
+              precision    recall  f1-score   support
+
+    ARGM-TMP       0.11      0.28      0.16      2451
+        ARG2       0.94      0.36      0.52     26895
+        ARG3       0.22      0.48      0.30      3968
+    ARGM-MNR       0.00      0.00      0.00         0
+        ARG0       0.00      0.00      0.00         0
+        ARG1       0.00      0.00      0.00         0
+    ARGM-LOC       0.00      0.00      0.00         0
+
+    accuracy                           0.37     33314
+   macro avg       0.18      0.16      0.14     33314
+weighted avg       0.79      0.37      0.47     33314
