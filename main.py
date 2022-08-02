@@ -51,10 +51,11 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
             'dev_conllu_fpath': dev_path, # annotations file in CONLLU format for development
             'max_epoch': epochs,
             "batch_size":btch_size,
-            'panelty':panelty
+            'panelty':panelty,
+            "training":False
         })
 
-    trainer.train()
+    #trainer.train()
     test_set = TaggerDataset(
         config=trainer._config,
         input_conllu=test_d_path,

@@ -96,8 +96,8 @@ class PosDepClassifier(nn.Module):
             # load pretrained weights
             self.initialized_weights = self.state_dict()
             language = treebank2lang[treebank_name]
-            pth = '/home/kabira/Documents/githubs/grammer_swap0.005morph_grammer_main_task/xlm-roberta-base/customized-mwt-ner/customized-mwt-ner.tagger.mdl'
-            self.pretrained_tagger_weights = torch.load(pth, map_location=self.config.device)[
+            print("********************",self.config._save_dir)
+            self.pretrained_tagger_weights = torch.load(self.config._save_dir+'/customized-mwt-ner.tagger.mdl', map_location=self.config.device)[
                 'adapters']
 
             for name, value in self.pretrained_tagger_weights.items():

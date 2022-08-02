@@ -21,7 +21,9 @@ class TPipeline:
     def __init__(self, training_config):
         super(TPipeline, self).__init__()
         # set up training config
+        self.training_config = training_config
         self._set_up_config(training_config)
+        
 
         # prepare data and vocabs
         self._prepare_data_and_vocabs()
@@ -51,6 +53,7 @@ class TPipeline:
             self.model_parameters = [(n, p) for n, p in self._embedding_layers.named_parameters()] + \
                                     [(n, p) for n, p in self._tagger.named_parameters()]
             print("********************TIME TOOK ",time.time()-tt,'**********************************')
+
         elif self._task == 'mwt':
             # mwt
             self._mwt_model = MWTWrapper(self._config, treebank_name=self._config.treebank_name,
@@ -179,6 +182,10 @@ class TPipeline:
         ensure_dir(self._save_dir)
         self._config = master_config
         self._config.training = True
+        print(self._config)
+        if "training" in  self.training_config:
+            self._config.training = self.training_config['training']
+
         self._config.lang = self._lang
         self._config.treebank_name = treebank_name
 
@@ -727,6 +734,7 @@ class TPipeline:
         torch.save(state, ckpt_fpath)
         print('Saving adapter weights to ... {} ({:.2f} MB)'.format(ckpt_fpath,
                                                                     os.path.getsize(ckpt_fpath) * 1. / (1024 * 1024)))
+        print("MODEL SAVE PATH ",ckpt_fpath)
 
     def train(self):
         if self._task == 'tokenize':
