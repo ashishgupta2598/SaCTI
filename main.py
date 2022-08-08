@@ -52,10 +52,10 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
             'max_epoch': epochs,
             "batch_size":btch_size,
             'panelty':panelty,
-            "training":True
+            "training":False
         })
 
-    trainer.train()
+    #trainer.train()
     test_set = TaggerDataset(
         config=trainer._config,
         input_conllu=test_d_path,
@@ -76,7 +76,7 @@ if __name__=='__main__':
     parser.add_argument('--model_path', type=str, default='./model1', help='Model path')
     parser.add_argument('--experiment', type=str, default='saCTI-base fine', help='Experiment type',choices=choices)
     parser.add_argument('--epochs', type=int, default=70, help='epochs')
-    parser.add_argument('--batch_size', type=int, default=50, help='batch size')
+    parser.add_argument('--batch_size', type=int, default=70, help='batch size')
 
     args = parser.parse_args()
     exp_type = args.experiment
