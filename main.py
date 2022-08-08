@@ -1,3 +1,4 @@
+from unicodedata import decimal
 import torch
 from sklearn.metrics import classification_report
 from data_config import get_path,choices
@@ -35,13 +36,14 @@ def acc(path,test_d_path):
         preds.append(pred[i][7])
         targs.append(gold[i][7])
     target_names = list(set(targs))
-    print(classification_report(preds, targs, target_names=target_names))
+    print(classification_report(preds, targs, target_names=target_names,digits=4))
     f = open('eval_matrix.txt','w')
-    f.write(str(classification_report(preds, targs, target_names=target_names)))
+    f.write(str(classification_report(preds, targs, target_names=target_names,digits=4)))
     f.close()
 
 def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
     torch.cuda.empty_cache()
+    training = True
     trainer = TPipeline(
             training_config={
             'category': 'customized-mwt-ner', # pipeline category
@@ -52,10 +54,12 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
             'max_epoch': epochs,
             "batch_size":btch_size,
             'panelty':panelty,
-            "training":False
+            "training":training
         })
 
-    #trainer.train()
+    if training:
+        trainer.train()
+    # test_d_path = dev_path
     test_set = TaggerDataset(
         config=trainer._config,
         input_conllu=test_d_path,
@@ -73,7 +77,7 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', type=str, default='./model1', help='Model path')
+    parser.add_argument('--model_path', type=str, default='/home/kabira/Documents/save_data', help='Model path')
     parser.add_argument('--experiment', type=str, default='saCTI-base fine', help='Experiment type',choices=choices)
     parser.add_argument('--epochs', type=int, default=70, help='epochs')
     parser.add_argument('--batch_size', type=int, default=70, help='batch size')

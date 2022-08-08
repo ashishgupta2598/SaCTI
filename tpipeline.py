@@ -1,3 +1,4 @@
+from distutils.command.config import config
 from config import config as master_config
 from models.base_models import Multilingual_Embedding
 from models.classifiers import TokenizerClassifier, PosDepClassifier, NERClassifier
@@ -42,16 +43,38 @@ class TPipeline:
 
         elif self._task == 'posdep':
             tt = time.time()
-            self._embedding_layers = Multilingual_Embedding(self._config, model_name='tagger')
-            self._embedding_layers.to(self._config.device)
 
-            # taggers
+            self._config.save_dir = self.training_config['save_dir']
+            if self._config.training==False:
+                pth = self._config.save_dir+'/posdep/model.pth'
+                self._tagger = torch.load(pth)
+                self._tagger.to(self._config.device)
+
+                pth = self._config.save_dir+'/bert/model.pth'
+                self._embedding_layers = torch.load(pth)
+                self._embedding_layers.to(self._config.device)
+                
+                self.model_parameters = [(n, p) for n, p in self._embedding_layers.named_parameters()] + \
+                                        [(n, p) for n, p in self._tagger.named_parameters()]
+
+
+                print("posdep model loaded success")
+            else:
+                if not os.path.exists(self._config.save_dir+'/posdep'):
+                    os.mkdir(self._config.save_dir+'/posdep')
+                if not os.path.exists(self._config.save_dir+'/bert'):
+                    os.mkdir(self._config.save_dir+'/bert')
+                self._embedding_layers = Multilingual_Embedding(self._config, model_name='tagger')
+                self._embedding_layers.to(self._config.device)
+
+                # taggers
+                
+                self._tagger = PosDepClassifier(self._config,panelty=training_config['panelty'], treebank_name=lang2treebank[self._lang])
+                self._tagger.to(self._config.device)
+                self.model_parameters = [(n, p) for n, p in self._embedding_layers.named_parameters()] + \
+                                        [(n, p) for n, p in self._tagger.named_parameters()]
+
             
-            self._tagger = PosDepClassifier(self._config,panelty=training_config['panelty'], treebank_name=lang2treebank[self._lang])
-            self._tagger.to(self._config.device)
-
-            self.model_parameters = [(n, p) for n, p in self._embedding_layers.named_parameters()] + \
-                                    [(n, p) for n, p in self._tagger.named_parameters()]
             print("********************TIME TOOK ",time.time()-tt,'**********************************')
 
         elif self._task == 'mwt':
@@ -710,6 +733,12 @@ class TPipeline:
         return score
 
     def _save_model(self, ckpt_fpath, epoch):
+        pth = self._config.save_dir+'/posdep/model.pth'
+        torch.save(self._tagger,pth)
+        
+        pth = self._config.save_dir+'/bert/model.pth'
+        torch.save(self._embedding_layers,pth)
+
         trainable_weight_names = [n for n, p in self.model_parameters if p.requires_grad]
         state = {
             'adapters': {},
