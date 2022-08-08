@@ -6,7 +6,7 @@ from tpipeline import TPipeline,TaggerDataset
 import time
 import argparse
 
-def acc(path,test_d_path):
+def acc(path,test_d_path,exp_type):
     f = open(test_d_path,'r')
     gold =  f.readlines()
     f.close()
@@ -37,13 +37,13 @@ def acc(path,test_d_path):
         targs.append(gold[i][7])
     target_names = list(set(targs))
     print(classification_report(preds, targs, target_names=target_names,digits=4))
-    f = open('eval_matrix.txt','w')
+    f = open(exp_type+'eval_matrix.txt','w')
     f.write(str(classification_report(preds, targs, target_names=target_names,digits=4)))
     f.close()
 
-def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
+def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size,exp_type):
     torch.cuda.empty_cache()
-    training = True
+    training = False
     trainer = TPipeline(
             training_config={
             'category': 'customized-mwt-ner', # pipeline category
@@ -73,14 +73,14 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
     print("Path of test preds ",path)
     del trainer
     torch.cuda.empty_cache()
-    acc(path,test_d_path)
+    acc(path,test_d_path,exp_type)
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_path', type=str, default='/home/kabira/Documents/save_data', help='Model path')
-    parser.add_argument('--experiment', type=str, default='saCTI-base fine', help='Experiment type',choices=choices)
-    parser.add_argument('--epochs', type=int, default=70, help='epochs')
-    parser.add_argument('--batch_size', type=int, default=70, help='batch size')
+    parser.add_argument('--experiment', type=str, default='saCTI-base coarse', help='Experiment type',choices=choices)
+    parser.add_argument('--epochs', type=int, default=80, help='epochs')
+    parser.add_argument('--batch_size', type=int, default=55, help='batch size')
 
     args = parser.parse_args()
     exp_type = args.experiment
@@ -90,7 +90,7 @@ if __name__=='__main__':
     
     
     panelty = 0.01
-    run(panelty,model_path,train_path,dev_path,test_path,args.epochs,args.batch_size)
+    run(panelty,model_path,train_path,dev_path,test_path,args.epochs,args.batch_size,exp_type)
 
 
 
