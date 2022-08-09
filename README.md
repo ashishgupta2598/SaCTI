@@ -26,6 +26,7 @@ List of data provided:
 
 ## How to train model
 To train the model you have to run main.py file with 4 command line arguments.
+
 Arguments are: <br />
 1. model_path: path to save model.
 2. experiment: Name of experiment which you want to run. The list of experiments are given below. Default:saCTI-base coarse
