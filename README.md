@@ -49,6 +49,6 @@ Name of different experiments:
 ## Citation
 
 ## Acknowledgements
-Much of the base code is from ["trankit"](https://github.com/nlp-uoregon/trankit)
+Much of the base code is from [Trankit](https://github.com/nlp-uoregon/trankit)
 
 
