@@ -3,14 +3,16 @@
 Official code for the paper "". If you use this code please cite our paper.
  
 ## Requirements
-Python 3.9.x
-Pytorch 1.11.0
-Cuda 11.6
-Transformers(huggingface) 4.17.0
-sklearn:0.22.1
+* Python 3.9.x
+* Pytorch 1.11.0
+* Cuda 11.3
+* Transformers(huggingface) 4.17.0
+* sklearn:0.22.1
 
 Please run requirements.txt for dependecies installations.
-
+```
+pip3 install -r requirements.txt
+```
 
 Data
 Data is provided in data folder of this repo.
@@ -31,7 +33,10 @@ Arguments are: <br />
 4. batch_size: Size of batch. Default:50
 
 Running the code
-**python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75**
+'''
+python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75
+'''
+
 
 Name of different experiments:
 1. english 
@@ -47,19 +52,5 @@ Name of different experiments:
 
 ## Acknowledgements
 Much of the base code is from ["trankit"](https://github.com/nlp-uoregon/trankit)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

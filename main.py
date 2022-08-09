@@ -52,10 +52,10 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size):
             'max_epoch': epochs,
             "batch_size":btch_size,
             'panelty':panelty,
-            "training":False
+            "training":True
         })
 
-    #trainer.train()
+    trainer.train()
     test_set = TaggerDataset(
         config=trainer._config,
         input_conllu=test_d_path,
