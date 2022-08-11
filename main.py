@@ -41,9 +41,8 @@ def acc(path,test_d_path,exp_type):
     f.write(str(classification_report(preds, targs, target_names=target_names,digits=4)))
     f.close()
 
-def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size,exp_type):
+def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size,exp_type,training):
     torch.cuda.empty_cache()
-    training = False
     trainer = TPipeline(
             training_config={
             'category': 'customized-mwt-ner', # pipeline category
@@ -81,16 +80,20 @@ if __name__=='__main__':
     parser.add_argument('--experiment', type=str, default='saCTI-base coarse', help='Experiment type',choices=choices)
     parser.add_argument('--epochs', type=int, default=80, help='epochs')
     parser.add_argument('--batch_size', type=int, default=55, help='batch size')
+    parser.add_argument('--training', type=int, default=True, help='True if traning and False if Test',choices=['True','False'])
+
 
     args = parser.parse_args()
     exp_type = args.experiment
 
     train_path,dev_path,test_path = get_path(exp_type)
     model_path = args.model_path #'./models/'
+    train_boolean = args.training #'./models/'
+
     
     
     panelty = 0.01
-    run(panelty,model_path,train_path,dev_path,test_path,args.epochs,args.batch_size,exp_type)
+    run(panelty,model_path,train_path,dev_path,test_path,args.epochs,args.batch_size,exp_type,train_boolean)
 
 
 

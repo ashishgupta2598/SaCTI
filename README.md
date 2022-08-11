@@ -33,7 +33,7 @@ Arguments are: <br />
 3. epochs: Number of epochs. Default:70
 4. batch_size: Size of batch. Default:50
 
-Running the code
+Running the code for traning
 
 ```python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75```
 
@@ -46,6 +46,11 @@ Name of different experiments:
 6. saCTI-large fine
 
 (Please check data_config.py file for the same.)
+
+## For inference 
+Set the --training variable as Flase
+And run the command
+```python3 main.py --model_path='save_models' --experiment='english' --training=False```
 
 ## Citation
 
