@@ -10,22 +10,23 @@ Official code for the paper "". If you use this code please cite our paper.
 * sklearn:0.22.1
 
 Please run requirements.txt for dependecies installations.
-```
-pip3 install -r requirements.txt
-```
 
-Data
-Data is provided in data folder of this repo.
+```pip3 install -r requirements.txt```
+
+## Datasets
+
+Datasets are provided in data folder of this repo.
 List of data provided:
 1. English
 2. Marathi
-3. saCTI-base coarse
-4. saCTI-base fine
-5. saCTI-large coarse
-6. saCTI-large fine
+3. saCTI-base coarse labels
+4. saCTI-base fine labels
+5. saCTI-large coarse labels
+6. saCTI-large labels
 
-How to train model
+## How to train model
 To train the model you have to run main.py file with 4 command line arguments.
+
 Arguments are: <br />
 1. model_path: path to save model.
 2. experiment: Name of experiment which you want to run. The list of experiments are given below. Default:saCTI-base coarse
@@ -33,10 +34,8 @@ Arguments are: <br />
 4. batch_size: Size of batch. Default:50
 
 Running the code
-'''
-python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75
-'''
 
+```python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75```
 
 Name of different experiments:
 1. english 
@@ -51,6 +50,6 @@ Name of different experiments:
 ## Citation
 
 ## Acknowledgements
-Much of the base code is from ["trankit"](https://github.com/nlp-uoregon/trankit)
+Much of the base code is from [Trankit](https://github.com/nlp-uoregon/trankit)
 
 
