@@ -92,19 +92,19 @@ class PosDepClassifier(nn.Module):
 
         # loss function
         self.criteria = torch.nn.CrossEntropyLoss()
-        if not config.training:
-            # load pretrained weights
-            self.initialized_weights = self.state_dict()
-            language = treebank2lang[treebank_name]
-            print("********************",self.config._save_dir)
-            self.pretrained_tagger_weights = torch.load(self.config._save_dir+'/customized-mwt-ner.tagger.mdl', map_location=self.config.device)[
-                'adapters']
+        # if not config.training:
+        #     # load pretrained weights
+        #     self.initialized_weights = self.state_dict()
+        #     language = treebank2lang[treebank_name]
+        #     print("********************",self.config._save_dir)
+        #     self.pretrained_tagger_weights = torch.load(self.config._save_dir+'/customized-mwt-ner.tagger.mdl', map_location=self.config.device)[
+        #         'adapters']
 
-            for name, value in self.pretrained_tagger_weights.items():
-                if name in self.initialized_weights:
-                    self.initialized_weights[name] = value
-            self.load_state_dict(self.initialized_weights)
-            print('Loading tagger for {}'.format(language))
+        #     for name, value in self.pretrained_tagger_weights.items():
+        #         if name in self.initialized_weights:
+        #             self.initialized_weights[name] = value
+        #     self.load_state_dict(self.initialized_weights)
+        #     print('Loading tagger for {}'.format(language))
         self.panelty = panelty
         print("panetly ",self.panelty)
 
