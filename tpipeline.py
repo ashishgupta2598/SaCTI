@@ -618,7 +618,7 @@ class TPipeline:
 
             pred_tokensg = [[[head_seqsg[i][j], deprel_seqsg[i][j]] for j in range(sentlens[i] - 1)] for i in
                            range(batch_size)]
-            #For grammer
+            #For grammer 
             words_matrix_small = []
             for bid in range(batch_size):
                 words = batch.words[bid]
@@ -665,9 +665,9 @@ class TPipeline:
         if task=='test':
             with open('attention_weights/'+task+'_words.pkl', 'wb') as f:
                 pickle.dump(words_matrix, f)
-            with open('attention_weights/'+task+'_deprel.pkl', 'wb') as f:
+            with open('attention_weights/'+task+'_head.pkl', 'wb') as f:
                 pickle.dump(full_final_deprel, f)
-            with open('attention_weights/'+task+'_deprel_grammer.pkl', 'wb') as f:
+            with open('attention_weights/'+task+'_deprel.pkl', 'wb') as f:
                 pickle.dump(full_deprel_grammer, f)
         return score, pred_conllu_fpath
 
