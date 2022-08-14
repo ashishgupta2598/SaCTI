@@ -603,7 +603,8 @@ class TPipeline:
                            range(batch_size)]
 
             #print("pred_tokens ",pred_tokens)
-            
+            #return predicted_upos, predicted_xpos, predicted_feats, dep_preds,dep_preds_grammer,unlabeled_scores,unlabeled_scores_grammer
+
             #For grammer
             predicted_depg = predictions[4]
             #print(predicted_depg[1].shape)
@@ -665,9 +666,9 @@ class TPipeline:
         if task=='test':
             with open('attention_weights/'+task+'_words.pkl', 'wb') as f:
                 pickle.dump(words_matrix, f)
-            with open('attention_weights/'+task+'_head.pkl', 'wb') as f:
-                pickle.dump(full_final_deprel, f)
             with open('attention_weights/'+task+'_deprel.pkl', 'wb') as f:
+                pickle.dump(full_final_deprel, f)
+            with open('attention_weights/'+task+'_head.pkl', 'wb') as f:
                 pickle.dump(full_deprel_grammer, f)
         return score, pred_conllu_fpath
 
