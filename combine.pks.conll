@@ -17329,7 +17329,7 @@ word_id	word	postag	lemma	gold_head	gold_label	pred_head	pred_label
 12	तरङ्गम्	_	_	15	Bahuvrihi	15	Tatpurusha
 13	बहुधा	_	_	15	Bahuvrihi	15	Tatpurusha
 14	सूचयांचकार	_	_	15	Bahuvrihi	15	Tatpurusha
-15	नाना-विध	_	_	0	Bahuvrihi	0	Tatpurusha
+15	नाना-विध	_	_	0	Bahuvrihi	0	Bahuvrihi
 
 1	दिने	_	_	13	Bahuvrihi	13	Tatpurusha
 2	अस्मिन्	_	_	13	Bahuvrihi	13	Tatpurusha

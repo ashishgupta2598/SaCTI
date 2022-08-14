@@ -17,6 +17,7 @@ from adapter_transformers import XLMRobertaTokenizer
 from tqdm import tqdm
 from adapter_transformers import AdamW, get_linear_schedule_with_warmup
 import logging
+import pickle
 
 class TPipeline:
     def __init__(self, training_config):
@@ -549,11 +550,14 @@ class TPipeline:
         torch.cuda.empty_cache()
         self._embedding_layers.eval()
         self._tagger.eval()
-        
+        deprel_scores = []
+        words_matrix = []
         # evaluate
         progress = tqdm(total=batch_num, ncols=75,
                         desc='{} {}'.format(name, epoch))
-      
+        full_final_deprel = []
+        full_final_head_seqs = []
+        full_deprel_grammer = []
         for batch in DataLoader(data_set, batch_size=self._config.batch_size,
                                 shuffle=False, collate_fn=data_set.collate_fn):
             batch_size = len(batch.word_num)
@@ -577,6 +581,7 @@ class TPipeline:
                          zip(predicted_dep[0], sentlens)]
             # print(head_seqs)
             # exit()
+            full_final_head_seqs.append(head_seqs)
             deprel_seqs = [[self._config.itos[DEPREL][predicted_dep[1][i][j + 1][h]] for j, h in
                             enumerate(hs)] for
                            i, hs
@@ -585,23 +590,15 @@ class TPipeline:
 
             #print("shape ",predicted_dep[1])
             dep_scrs = predictions[5].data.cpu().numpy()
+            full_deprel_grammer.append(predictions[6].data.cpu().numpy())
+            full_final_deprel.append(predictions[5].data.cpu().numpy())
 
             deprel_scrs = [[[dep_scrs[i][j + 1][h]] for j, h in
                             enumerate(hs)] for
                            i, hs
                            in
                            enumerate(head_seqs)]
-            # for i,hs in enumerate(head_seqs):
-            #     print(i,hs)
-                
-            #     for j,h in enumerate(hs):
-            #         #print("h is here ",h,predicted_dep[1][i])
-            #         print("khamma ghani ",dep_scrs[i][j + 1][h])
-            #exit()
-
-
-            #print("deps ",self._config.itos[DEPREL])
-            #print(deprel_seqs)
+            
             pred_tokens = [[[head_seqs[i][j], deprel_seqs[i][j],deprel_scrs[i][j]] for j in range(sentlens[i] - 1)] for i in
                            range(batch_size)]
 
@@ -652,9 +649,10 @@ class TPipeline:
                     #print(data_set.conllu_doc[sentid][wordid])
                     data_set.conllu_doc[sentid][wordid][DEPREL] = pred_tokens[bid][i][1]
                     # #Grammer
-                    data_set.conllu_doc[sentid][wordid][HEADG] = pred_tokens[bid][i][2][0]#int(pred_tokensg[bid][i][0])
+                    data_set.conllu_doc[sentid][wordid][HEADG] = int(pred_tokensg[bid][i][0]) #pred_tokens[bid][i][2][0]#
                     # deprel
                     data_set.conllu_doc[sentid][wordid][DEPRELG] = pred_tokensg[bid][i][1]
+            words_matrix.append(words_matrix_small)      
 
         progress.close()
         pred_conllu_fpath = os.path.join(self._config._save_dir, 'preds',
@@ -664,6 +662,13 @@ class TPipeline:
         score = get_ud_score(pred_conllu_fpath, data_set.gold_conllu)
         score['epoch'] = epoch
         #deprel_scores
+        if task=='test':
+            with open('attention_weights/'+task+'_words.pkl', 'wb') as f:
+                pickle.dump(words_matrix, f)
+            with open('attention_weights/'+task+'_deprel.pkl', 'wb') as f:
+                pickle.dump(full_final_deprel, f)
+            with open('attention_weights/'+task+'_deprel_grammer.pkl', 'wb') as f:
+                pickle.dump(full_deprel_grammer, f)
         return score, pred_conllu_fpath
 
     def _train_lemma(self):

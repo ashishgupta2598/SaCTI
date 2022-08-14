@@ -43,6 +43,7 @@ def acc(path,test_d_path,exp_type):
 
 def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size,exp_type,training):
     torch.cuda.empty_cache()
+    print(train_boolean)
     trainer = TPipeline(
             training_config={
             'category': 'customized-mwt-ner', # pipeline category
@@ -68,7 +69,7 @@ def run(panelty,model_path,train_path,dev_path,test_d_path,epochs,btch_size,exp_
     test_set.numberize()
     test_batch_num = len(test_set) // trainer._config.batch_size + (len(test_set) % trainer._config.batch_size != 0)
     result,path = trainer._eval_posdep(data_set=test_set, batch_num=test_batch_num,
-                            name='testfaL', epoch=-1)
+                            name='testfaL', epoch=-1,task='test')
     print("Path of test preds ",path)
     del trainer
     torch.cuda.empty_cache()
@@ -80,7 +81,7 @@ if __name__=='__main__':
     parser.add_argument('--experiment', type=str, default='saCTI-base coarse', help='Experiment type',choices=choices)
     parser.add_argument('--epochs', type=int, default=80, help='epochs')
     parser.add_argument('--batch_size', type=int, default=55, help='batch size')
-    parser.add_argument('--training', type=int, default=True, help='True if traning and False if Test',choices=['True','False'])
+    parser.add_argument('--training', type=str, default='False', help='True if traning and False if Test',choices=['False','True'])
 
 
     args = parser.parse_args()
@@ -88,8 +89,8 @@ if __name__=='__main__':
 
     train_path,dev_path,test_path = get_path(exp_type)
     model_path = args.model_path #'./models/'
-    train_boolean = args.training #'./models/'
-
+    train_boolean = True if args.training=='True' else False 
+    print(train_boolean)
     
     
     panelty = 0.01
