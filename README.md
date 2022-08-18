@@ -1,6 +1,6 @@
 # SaCTI: Sanskrit Compound Type Identifier
 
-Official code for the paper ["A Novel Multi-Task Learning Approach for  Context-Sensitive Compound Type Identification in Sanskrit"][]. If you use this code please cite our paper.
+Official code for the paper ["A Novel Multi-Task Learning Approach for  Context-Sensitive Compound Type Identification in Sanskrit"](). If you use this code please cite our paper.
  
 ## Requirements
 * Python 3.9.x
@@ -17,7 +17,7 @@ pip3 install -r requirements.txt
 
 ## Datasets
 
-The datasets are available in [data][] folder: `English`, `Marathi`, `saCTI-base coarse labels`, `saCTI-base fine labels`, `saCTI-large coarse labels`, `saCTI-large labels`.
+The datasets are available in [data]() folder: `English`, `Marathi`, `saCTI-base coarse labels`, `saCTI-base fine labels`, `saCTI-large coarse labels`, `saCTI-large labels`.
 
 
 ## How to train model
@@ -40,7 +40,7 @@ python3 main.py --model_path='save_models' --experiment='english' --training= Fa
 ```
 
 ## Data annotation framework
-If you are interested in our data annotation framework, you can check [`Annotation_Framework`][] folder for the more details.
+If you are interested in our data annotation framework, you can check [`Annotation_Framework`](https://github.com/hrishikeshrt/classification-annotation) for the more details.
 
 
 ## Citation
