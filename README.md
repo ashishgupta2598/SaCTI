@@ -1,6 +1,6 @@
-# SaCTI
+# SaCTI: Sanskrit Compound Type Identifier
 
-Official code for the paper "". If you use this code please cite our paper.
+Official code for the paper ["A Novel Multi-Task Learning Approach for  Context-Sensitive Compound Type Identification in Sanskrit"][]. If you use this code please cite our paper.
  
 ## Requirements
 * Python 3.9.x
@@ -9,50 +9,55 @@ Official code for the paper "". If you use this code please cite our paper.
 * Transformers(huggingface) 4.17.0
 * sklearn:0.22.1
 
-Please run requirements.txt for dependecies installations.
+Please install the following dependecies.
 
-```pip3 install -r requirements.txt```
+```
+pip3 install -r requirements.txt
+```
 
 ## Datasets
 
-Datasets are provided in data folder of this repo.
-List of data provided:
-1. English
-2. Marathi
-3. saCTI-base coarse labels
-4. saCTI-base fine labels
-5. saCTI-large coarse labels
-6. saCTI-large labels
+The datasets are available in [data][] folder: `English`, `Marathi`, `saCTI-base coarse labels`, `saCTI-base fine labels`, `saCTI-large coarse labels`, `saCTI-large labels`.
+
 
 ## How to train model
-To train the model you have to run main.py file with 4 command line arguments.
+To train the model, you need to run `main.py` with the following flags.
+* `model_path` : path to save model.
+* `experiment` : the name of the dataset on which you want to experiment. The list of datasets are given below. Default: `saCTI-base coarse`
+* `epochs` : Number of epochs. Default:70
+* `batch_size` : Size of batch. Default:50
 
-Arguments are: <br />
-1. model_path: path to save model.
-2. experiment: Name of experiment which you want to run. The list of experiments are given below. Default:saCTI-base coarse
-3. epochs: Number of epochs. Default:70
-4. batch_size: Size of batch. Default:50
+The list of datasets: `english`, `marathi`, `saCTI-base coarse`, `saCTI-base fine`, `saCTI-large coarse`, `saCTI-large fine`. (Refer to `data_config.py` file for more details.)
 
-Running the code for traning
-
-```python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75```
-
-Name of different experiments:
-1. english 
-2. marathi
-3. saCTI-base coarse
-4. saCTI-base fine
-5. saCTI-large coarse
-6. saCTI-large fine
-
-(Please check data_config.py file for the same.)
+```
+python3 main.py --model_path='save_models' --experiment='english' --epochs=70 --batch_size=75
+```
 
 ## For inference 
-Set the --training variable as Flase
-And run the command
-```python3 main.py --model_path='save_models' --experiment='english' --training=False```
+`Note`: Please note that the results reported in our paper are averaged over 4 runs.
+```
+python3 main.py --model_path='save_models' --experiment='english' --training= False
+```
+
+## Data annotation framework
+If you are interested in our data annotation framework, you can check [`Annotation_Framework`][] folder for the more details.
+
 
 ## Citation
+If you use our tool, we'd appreciate if you cite our paper:
+```
+@misc{sandhan2022systematic,
+      title={Systematic Investigation of Strategies Tailored for Low-Resource Settings for Sanskrit Dependency Parsing}, 
+      author={Jivnesh Sandhan and Laxmidhar Behera and Pawan Goyal},
+      year={2022},
+      eprint={2201.11374},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
+
+## License
+This project is licensed under the terms of the `Apache license 2.0`.
 
 ## Acknowledgements
 Much of the base code is from [Trankit](https://github.com/nlp-uoregon/trankit)
