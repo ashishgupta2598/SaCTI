@@ -49,11 +49,11 @@ Coming soon ...
 ## Citation
 If you use our tool, we'd appreciate if you cite our paper:
 ```
-@misc{sandhan2022systematic,
-      title={Systematic Investigation of Strategies Tailored for Low-Resource Settings for Sanskrit Dependency Parsing}, 
-      author={Jivnesh Sandhan and Laxmidhar Behera and Pawan Goyal},
+@misc{sandhan2022novel,
+      title={A Novel Multi-Task Learning Approach for  Context-Sensitive Compound Type Identification in Sanskrit}, 
+      author={Jivnesh Sandhan, Ashish Gupta, Hrishikesh Terdalkar, Tushar Sandhan, Suvendu Samanta, Laxmidhar Behera and Pawan Goyal}
       year={2022},
-      eprint={2201.11374},
+      eprint={-},
       archivePrefix={arXiv},
       primaryClass={cs.CL}
 }
