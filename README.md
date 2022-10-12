@@ -51,13 +51,7 @@ If you use our tool, we'd appreciate if you cite our paper:
 ```
 @inproceedings{sandhan-etal-2022-novel,
     title = "A Novel Multi-Task Learning Approach for Context-Sensitive Compound Type Identification in {S}anskrit",
-    author = "Sandhan, Jivnesh  and
-      Gupta, Ashish  and
-      Terdalkar, Hrishikesh  and
-      Sandhan, Tushar  and
-      Samanta, Suvendu  and
-      Behera, Laxmidhar  and
-      Goyal, Pawan",
+    author = "Sandhan, Jivnesh  and Gupta, Ashish  and Terdalkar, Hrishikesh  and Sandhan, Tushar  and Samanta, Suvendu  and Behera, Laxmidhar  and Goyal, Pawan",
     booktitle = "Proceedings of the 29th International Conference on Computational Linguistics",
     month = oct,
     year = "2022",
