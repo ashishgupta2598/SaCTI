@@ -1,6 +1,6 @@
 # SaCTI: Sanskrit Compound Type Identifier
 
-Official code for the paper ["A Novel Multi-Task Learning Approach for  Context-Sensitive Compound Type Identification in Sanskrit"](https://arxiv.org/abs/2208.10310). If you use this code please cite our paper.
+Official code for the paper ["A Novel Multi-Task Learning Approach for  Context-Sensitive Compound Type Identification in Sanskrit"](https://aclanthology.org/2022.coling-1.358/). If you use this code please cite our paper.
  
 ## Requirements
 * Python 3.9.x
