@@ -49,15 +49,23 @@ Coming soon ...
 ## Citation
 If you use our tool, we'd appreciate if you cite our paper:
 ```
-@misc{sandhan2022novel,
-  doi = {10.48550/ARXIV.2208.10310},
-  url = {https://arxiv.org/abs/2208.10310},
-  author = {Sandhan, Jivnesh and Gupta, Ashish and Terdalkar, Hrishikesh and Sandhan, Tushar and Samanta, Suvendu and Behera, Laxmidhar and Goyal, Pawan},
-  keywords = {Computation and Language (cs.CL), FOS: Computer and information sciences, FOS: Computer and information sciences}, 
-  title = {A Novel Multi-Task Learning Approach for Context-Sensitive Compound Type Identification in Sanskrit},
-  publisher = {arXiv},
-  year = {2022},
-  copyright = {Creative Commons Attribution 4.0 International}
+@inproceedings{sandhan-etal-2022-novel,
+    title = "A Novel Multi-Task Learning Approach for Context-Sensitive Compound Type Identification in {S}anskrit",
+    author = "Sandhan, Jivnesh  and
+      Gupta, Ashish  and
+      Terdalkar, Hrishikesh  and
+      Sandhan, Tushar  and
+      Samanta, Suvendu  and
+      Behera, Laxmidhar  and
+      Goyal, Pawan",
+    booktitle = "Proceedings of the 29th International Conference on Computational Linguistics",
+    month = oct,
+    year = "2022",
+    address = "Gyeongju, Republic of Korea",
+    publisher = "International Committee on Computational Linguistics",
+    url = "https://aclanthology.org/2022.coling-1.358",
+    pages = "4071--4083",
+    abstract = "The phenomenon of compounding is ubiquitous in Sanskrit. It serves for achieving brevity in expressing thoughts, while simultaneously enriching the lexical and structural formation of the language. In this work, we focus on the Sanskrit Compound Type Identification (SaCTI) task, where we consider the problem of identifying semantic relations between the components of a compound word. Earlier approaches solely rely on the lexical information obtained from the components and ignore the most crucial contextual and syntactic information useful for SaCTI. However, the SaCTI task is challenging primarily due to the implicitly encoded context-sensitive semantic relation between the compound components. Thus, we propose a novel multi-task learning architecture which incorporates the contextual information and enriches the complementary syntactic information using morphological tagging and dependency parsing as two auxiliary tasks. Experiments on the benchmark datasets for SaCTI show 6.1 points (Accuracy) and 7.7 points (F1-score) absolute gain compared to the state-of-the-art system. Further, our multi-lingual experiments demonstrate the efficacy of the proposed architecture in English and Marathi languages.",
 }
 ```
 
